@@ -1,17 +1,12 @@
-function levelOrderBottom(root) {
-  if (!root) return [];
-  const result = [];
-  const queue = [root];
-  while (queue.length) {
-    const levelSize = queue.length;
-    const currentLevel = [];
-    for (let i = 0; i < levelSize; i++) {
-      const node = queue.shift();
-      currentLevel.push(node.val);
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
+const gnomeSort = (arr) => {
+  let index = 0;
+  while (index < arr.length) {
+    if (index === 0 || arr[index] >= arr[index - 1]) {
+      index++;
+    } else {
+      [arr[index], arr[index - 1]] = [arr[index - 1], arr[index]];
+      index--;
     }
-    result.unshift(currentLevel);
   }
-  return result;
-}
+  return arr;
+};
