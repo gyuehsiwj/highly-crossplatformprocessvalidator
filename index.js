@@ -1,15 +1,20 @@
-function minMeetingRoomsII(intervals) {
-  const startTimes = intervals
-    .map((interval) => interval[0])
-    .sort((a, b) => a - b);
-  const endTimes = intervals
-    .map((interval) => interval[1])
-    .sort((a, b) => a - b);
-  let rooms = 0;
-  let endIdx = 0;
-  for (let i = 0; i < startTimes.length; i++) {
-    if (startTimes[i] < endTimes[endIdx]) rooms++;
-    else endIdx++;
+function findCircleNum(M) {
+  if (!M || M.length === 0) return 0;
+  const visited = new Array(M.length).fill(false);
+  let count = 0;
+  for (let i = 0; i < M.length; i++) {
+    if (!visited[i]) {
+      dfs(M, i, visited);
+      count++;
+    }
   }
-  return rooms;
+  return count;
+}
+function dfs(M, i, visited) {
+  visited[i] = true;
+  for (let j = 0; j < M.length; j++) {
+    if (M[i][j] === 1 && !visited[j]) {
+      dfs(M, j, visited);
+    }
+  }
 }
