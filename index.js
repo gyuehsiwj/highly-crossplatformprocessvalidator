@@ -1,20 +1,14 @@
-function findCircleNum(M) {
-  if (!M || M.length === 0) return 0;
-  const visited = new Array(M.length).fill(false);
-  let count = 0;
-  for (let i = 0; i < M.length; i++) {
-    if (!visited[i]) {
-      dfs(M, i, visited);
-      count++;
+function rob(nums) {
+  if (nums.length === 1) return nums[0];
+  const robRange = (start, end) => {
+    let prevMax = 0;
+    let currMax = 0;
+    for (let i = start; i <= end; i++) {
+      const temp = currMax;
+      currMax = Math.max(currMax, prevMax + nums[i]);
+      prevMax = temp;
     }
-  }
-  return count;
-}
-function dfs(M, i, visited) {
-  visited[i] = true;
-  for (let j = 0; j < M.length; j++) {
-    if (M[i][j] === 1 && !visited[j]) {
-      dfs(M, j, visited);
-    }
-  }
+    return currMax;
+  };
+  return Math.max(robRange(0, nums.length - 2), robRange(1, nums.length - 1));
 }
